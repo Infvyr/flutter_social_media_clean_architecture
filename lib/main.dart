@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/config/app_theme.dart';
+
+import 'src/config/index.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,13 +11,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: CustomTheme.theme(),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      routerConfig: AppRouter().router,
     );
   }
 }
