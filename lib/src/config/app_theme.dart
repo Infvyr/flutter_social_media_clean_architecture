@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTheme {
   static ThemeData theme() {
     return ThemeData(
+      useMaterial3: true,
       scaffoldBackgroundColor: Colors.black87,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
