@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../constants/index.dart';
+import '../../../constants/index.dart';
 
 class CustomNavBar extends StatelessWidget {
   const CustomNavBar({super.key});
