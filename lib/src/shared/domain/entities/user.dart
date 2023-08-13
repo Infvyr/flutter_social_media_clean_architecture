@@ -6,20 +6,20 @@ class User extends Equatable {
     required this.id,
     required this.name,
     this.followers = 0,
-    this.following = 0,
+    this.followings = 0,
     this.avatarUrl,
   });
 
   final String id;
   final Username name;
   final int followers;
-  final int following;
+  final int followings;
   final String? avatarUrl;
 
   static const empty = User(id: 'user_0', name: Username.pure());
 
   @override
-  List<Object?> get props => [id, name, followers, following, avatarUrl];
+  List<Object?> get props => [id, name, followers, followings, avatarUrl];
 }
 
 enum UsernameValidationError { invalid }

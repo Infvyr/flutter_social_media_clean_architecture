@@ -7,7 +7,7 @@ class LoggedInUser extends User {
     required super.id,
     required super.name,
     super.followers,
-    super.following,
+    super.followings,
     super.avatarUrl,
     this.email,
   });
@@ -25,7 +25,7 @@ class LoggedInUser extends User {
         id,
         name,
         followers,
-        following,
+        followings,
         avatarUrl,
         email,
       ];
@@ -34,7 +34,7 @@ class LoggedInUser extends User {
     String? id,
     Username? name,
     int? followers,
-    int? following,
+    int? followings,
     String? avatarUrl,
     Email? email,
   }) {
@@ -42,7 +42,7 @@ class LoggedInUser extends User {
       id: id ?? this.id,
       name: name ?? this.name,
       followers: followers ?? this.followers,
-      following: following ?? this.following,
+      followings: followings ?? this.followings,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       email: email ?? this.email,
     );
