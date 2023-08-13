@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_social_media_with_clean_architecture/src/constants/index.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/auth/presentation/index.dart';
+import '../features/auth/index.dart';
 import '../features/feed/presentation/index.dart';
 
 class AppRouter {
