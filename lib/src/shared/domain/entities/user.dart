@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:formz/formz.dart';
 
 class User extends Equatable {
   const User({
@@ -10,13 +11,27 @@ class User extends Equatable {
   });
 
   final String id;
-  final String name;
+  final Username name;
   final int followers;
   final int following;
   final String? avatarUrl;
 
-  static const empty = User(id: 'user_0', name: '');
+  static const empty = User(id: 'user_0', name: Username.pure());
 
   @override
   List<Object?> get props => [id, name, followers, following, avatarUrl];
+}
+
+enum UsernameValidationError { invalid }
+
+class Username extends FormzInput<String, UsernameValidationError> {
+  const Username.pure() : super.pure('');
+  const Username.dirty([String value = '']) : super.dirty(value);
+
+  static final _usernameRegExp = RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+$');
+
+  @override
+  UsernameValidationError? validator(String value) {
+    return _usernameRegExp.hasMatch(value) ? null : UsernameValidationError.invalid;
+  }
 }

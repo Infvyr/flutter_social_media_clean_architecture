@@ -1,3 +1,5 @@
+import 'package:formz/formz.dart';
+
 import '../../../../shared/domain/index.dart';
 
 class LoggedInUser extends User {
@@ -10,12 +12,12 @@ class LoggedInUser extends User {
     this.email,
   });
 
-  final String? email;
+  final Email? email;
 
   static const empty = LoggedInUser(
     id: 'user_0',
-    name: '',
-    email: '-',
+    name: Username.pure(),
+    email: Email.pure(),
   );
 
   @override
@@ -30,11 +32,11 @@ class LoggedInUser extends User {
 
   LoggedInUser copyWith({
     String? id,
-    String? name,
+    Username? name,
     int? followers,
     int? following,
     String? avatarUrl,
-    String? email,
+    Email? email,
   }) {
     return LoggedInUser(
       id: id ?? this.id,
@@ -44,5 +46,33 @@ class LoggedInUser extends User {
       avatarUrl: avatarUrl ?? this.avatarUrl,
       email: email ?? this.email,
     );
+  }
+}
+
+enum EmailValidationError { invalid }
+
+class Email extends FormzInput<String, EmailValidationError> {
+  const Email.pure() : super.pure('');
+  const Email.dirty([String value = '']) : super.dirty(value);
+
+  static final _emailRegExp = RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+
+  @override
+  EmailValidationError? validator(String value) {
+    return _emailRegExp.hasMatch(value) ? null : EmailValidationError.invalid;
+  }
+}
+
+enum PasswordValidationError { invalid }
+
+class Password extends FormzInput<String, PasswordValidationError> {
+  const Password.pure() : super.pure('');
+  const Password.dirty([String value = '']) : super.dirty(value);
+
+  static final _passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$');
+
+  @override
+  PasswordValidationError? validator(String value) {
+    return _passwordRegExp.hasMatch(value) ? null : PasswordValidationError.invalid;
   }
 }
