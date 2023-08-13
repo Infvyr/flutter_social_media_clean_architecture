@@ -1,7 +1,7 @@
 import 'dart:async' show Future, Stream, StreamController;
 
 import '../../../../shared/domain/index.dart';
-import '../../domain/entities/logged_in_user.dart';
+import '../../domain/entities/index.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 

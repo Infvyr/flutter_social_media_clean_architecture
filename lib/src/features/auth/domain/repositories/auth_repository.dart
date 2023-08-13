@@ -1,6 +1,6 @@
 import '../../../../shared/domain/index.dart';
-import '../../data/data_sources/mock_auth_data_sources.dart';
-import '../entities/logged_in_user.dart';
+import '../../data/data_sources/index.dart';
+import '../entities/index.dart';
 
 abstract class AuthRepository {
   Stream<AuthStatus> get status;
