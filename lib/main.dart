@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'src/features/auth/domain/usecases/index.dart';
+import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'src/features/auth/presentation/blocs/login/login_cubit.dart';
+import 'src/features/auth/data/data_sources/index.dart';
+import 'src/features/auth/data/repositories/index.dart';
 
 import 'src/config/index.dart';
 
@@ -11,10 +17,31 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: CustomTheme.theme(),
-      routerConfig: AppRouter().router,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (_) => AuthRepositoryImpl(MockAuthDataSourcesImpl()),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(
+              logoutUser: LogoutUser(context.read<AuthRepositoryImpl>()),
+              getAuthStatus: GetAuthStatus(context.read<AuthRepositoryImpl>()),
+              getLoggedInUser: GetLoggedInUser(context.read<AuthRepositoryImpl>()),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => LoginCubit(loginUser: LoginUser(context.read<AuthRepositoryImpl>())),
+          ),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: CustomTheme.theme(),
+          routerConfig: AppRouter().router,
+        ),
+      ),
     );
   }
 }

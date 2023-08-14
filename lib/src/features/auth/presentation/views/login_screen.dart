@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/login/login_cubit.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../constants/index.dart';
@@ -14,20 +17,23 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sign In'),
       ),
-      body: const SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Spacer(flex: 3),
-              _UserName(),
-              SizedBox(height: 10.0),
-              _UserPassword(),
-              SizedBox(height: 10.0),
-              _SubmitButton(),
-              Spacer(flex: 2),
-              _Footer(),
-            ],
+      body: BlocListener<LoginCubit, LoginState>(
+        listener: (context, state) {},
+        child: const SafeArea(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Spacer(flex: 3),
+                _UserName(),
+                SizedBox(height: 10.0),
+                _UserPassword(),
+                SizedBox(height: 10.0),
+                _SubmitButton(),
+                Spacer(flex: 2),
+                _Footer(),
+              ],
+            ),
           ),
         ),
       ),
@@ -40,9 +46,18 @@ class _UserName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomTextField(
-      labelText: 'Username',
-      keyboardType: TextInputType.name,
+    return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) {
+        return previous.username != current.username;
+      },
+      builder: (context, state) {
+        return CustomTextField(
+          labelText: 'Username',
+          keyboardType: TextInputType.name,
+          errorText: state.username.invalid ? 'The username is invalid' : null,
+          onChanged: (value) => context.read<LoginCubit>().changeUsername(value),
+        );
+      },
     );
   }
 }
@@ -52,9 +67,18 @@ class _UserPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomTextField(
-      labelText: 'Password',
-      obscureText: true,
+    return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) {
+        return previous.password != current.password;
+      },
+      builder: (context, state) {
+        return CustomTextField(
+          labelText: 'Password',
+          obscureText: true,
+          errorText: state.password.invalid ? 'The password is invalid' : null,
+          onChanged: (value) => context.read<LoginCubit>().changePassword(value),
+        );
+      },
     );
   }
 }
@@ -64,18 +88,36 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: () {},
-      style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50.0)),
-      ),
-      child: Text(
-        'Sign In',
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-            ),
-      ),
+    return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) {
+        return previous.status != current.status;
+      },
+      builder: (context, state) {
+        return state.status == FormzStatus.submissionInProgress
+            ? const CircularProgressIndicator()
+            : FilledButton(
+                onPressed: () {
+                  state.status == FormzStatus.valid
+                      ? context.read<LoginCubit>().loginWithCredentials()
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.errorMessage!),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                },
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50.0)),
+                ),
+                child: Text(
+                  'Sign In',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+              );
+      },
     );
   }
 }
