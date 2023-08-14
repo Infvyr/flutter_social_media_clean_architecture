@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../../../../exceptions/auth_credentials.dart';
 import '../../../../../shared/domain/index.dart';
 import '../../../domain/entities/index.dart';
 import '../../../domain/usecases/index.dart';
@@ -40,6 +41,11 @@ class LoginCubit extends Cubit<LoginState> {
         password: state.password,
       ));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } on AuthCredentialsException catch (error) {
+      emit(state.copyWith(
+        status: FormzStatus.submissionFailure,
+        errorMessage: error.message,
+      ));
     } catch (error) {
       emit(state.copyWith(
         status: FormzStatus.submissionFailure,

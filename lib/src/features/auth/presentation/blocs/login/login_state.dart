@@ -5,20 +5,20 @@ class LoginState extends Equatable {
     this.username = const Username.pure(),
     this.password = const Password.pure(),
     this.status = FormzStatus.pure,
-    this.errorMessage,
+    this.errorMessage = '',
   });
 
   final Username username;
   final Password password;
   final FormzStatus status;
-  final String? errorMessage;
+  final String errorMessage;
 
   factory LoginState.initial() {
     return const LoginState(
       username: Username.pure(),
       password: Password.pure(),
       status: FormzStatus.pure,
-      errorMessage: null,
+      errorMessage: '',
     );
   }
 

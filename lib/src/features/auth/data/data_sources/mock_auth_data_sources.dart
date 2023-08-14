@@ -1,5 +1,6 @@
 import 'dart:async' show Future, Stream, StreamController;
 
+import '../../../../exceptions/auth_credentials.dart';
 import '../../../../shared/domain/index.dart';
 import '../../domain/entities/index.dart';
 
@@ -60,6 +61,7 @@ class MockAuthDataSourcesImpl extends MockAuthDataSources {
           return;
         }
       }
+      throw describeException(const UserNotFoundException());
     });
   }
 

@@ -22,18 +22,30 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autocorrect: false,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        labelText: labelText,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        errorText: errorText,
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         hintText: hintText,
+        labelText: labelText,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
       ),
       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black),
       obscureText: obscureText,

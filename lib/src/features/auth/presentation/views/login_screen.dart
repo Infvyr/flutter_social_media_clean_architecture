@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/login/login_cubit.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../constants/index.dart';
 import '../../../../shared/presentation/index.dart';
+import '../blocs/login/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -18,7 +18,15 @@ class LoginScreen extends StatelessWidget {
         title: const Text('Sign In'),
       ),
       body: BlocListener<LoginCubit, LoginState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+              ),
+            );
+          }
+        },
         child: const SafeArea(
           child: Padding(
             padding: EdgeInsets.all(20.0),
@@ -26,9 +34,9 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Spacer(flex: 3),
                 _UserName(),
-                SizedBox(height: 10.0),
+                SizedBox(height: 20.0),
                 _UserPassword(),
-                SizedBox(height: 10.0),
+                SizedBox(height: 20.0),
                 _SubmitButton(),
                 Spacer(flex: 2),
                 _Footer(),
@@ -53,6 +61,7 @@ class _UserName extends StatelessWidget {
       builder: (context, state) {
         return CustomTextField(
           labelText: 'Username',
+          hintText: 'Enter your username',
           keyboardType: TextInputType.name,
           errorText: state.username.invalid ? 'The username is invalid' : null,
           onChanged: (value) => context.read<LoginCubit>().changeUsername(value),
@@ -74,6 +83,7 @@ class _UserPassword extends StatelessWidget {
       builder: (context, state) {
         return CustomTextField(
           labelText: 'Password',
+          hintText: 'Enter your password',
           obscureText: true,
           errorText: state.password.invalid ? 'The password is invalid' : null,
           onChanged: (value) => context.read<LoginCubit>().changePassword(value),
@@ -101,8 +111,7 @@ class _SubmitButton extends StatelessWidget {
                       ? context.read<LoginCubit>().loginWithCredentials()
                       : ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(state.errorMessage!),
-                            backgroundColor: Colors.red,
+                            content: Text(state.errorMessage),
                           ),
                         );
                 },
@@ -111,10 +120,7 @@ class _SubmitButton extends StatelessWidget {
                 ),
                 child: Text(
                   'Sign In',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal),
                 ),
               );
       },

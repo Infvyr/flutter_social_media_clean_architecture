@@ -39,14 +39,18 @@ class CustomTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          foregroundColor: MaterialStateProperty.all(primaryColor),
+          backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+          foregroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all(
             const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
           ),
         ),
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: Color.fromARGB(255, 247, 29, 65),
+        contentTextStyle: TextStyle(color: Colors.white),
       ),
     );
   }
