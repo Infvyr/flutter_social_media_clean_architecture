@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomTheme {
   static const Color primaryColor = Color.fromARGB(255, 23, 28, 29);
+  static const Color errorColor = Color.fromARGB(255, 247, 29, 65);
+  static const Color accentColor = Colors.blueAccent;
 
   static ThemeData theme() {
     return ThemeData(
@@ -32,14 +34,14 @@ class CustomTheme {
       ),
       iconTheme: const IconThemeData(color: Colors.white),
       inputDecorationTheme: const InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        contentPadding: EdgeInsets.all(15.0),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Color(0xFFFAFAFA),
         labelStyle: TextStyle(color: primaryColor),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueAccent),
+          backgroundColor: MaterialStateProperty.all(accentColor),
           foregroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all(
             const RoundedRectangleBorder(
@@ -48,8 +50,10 @@ class CustomTheme {
           ),
         ),
       ),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: accentColor,
+      ),
       snackBarTheme: const SnackBarThemeData(
-        backgroundColor: Color.fromARGB(255, 247, 29, 65),
         contentTextStyle: TextStyle(color: Colors.white),
       ),
     );

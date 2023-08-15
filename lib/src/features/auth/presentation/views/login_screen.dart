@@ -1,12 +1,9 @@
-import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../constants/index.dart';
-import '../../../../shared/presentation/index.dart';
 import '../blocs/login/login_cubit.dart';
+import '../index.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,12 +16,13 @@ class LoginScreen extends StatelessWidget {
       ),
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state.status.isSubmissionFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage),
-              ),
-            );
+          debugPrint('LoginScreen valid? : ${state.isValid}');
+          if (state.status.isFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text(state.errorMessage ?? 'Something went wrong. Please try again later.')),
+              );
           }
         },
         child: const SafeArea(
@@ -33,119 +31,17 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 Spacer(flex: 3),
-                _UserName(),
+                UserName(),
                 SizedBox(height: 20.0),
-                _UserPassword(),
+                UserPassword(),
                 SizedBox(height: 20.0),
-                _SubmitButton(),
+                SubmitButton(),
                 Spacer(flex: 2),
-                _Footer(),
+                Footer(),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _UserName extends StatelessWidget {
-  const _UserName();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) {
-        return previous.username != current.username;
-      },
-      builder: (context, state) {
-        return CustomTextField(
-          labelText: 'Username',
-          hintText: 'Enter your username',
-          keyboardType: TextInputType.name,
-          errorText: state.username.invalid ? 'The username is invalid' : null,
-          onChanged: (value) => context.read<LoginCubit>().changeUsername(value),
-        );
-      },
-    );
-  }
-}
-
-class _UserPassword extends StatelessWidget {
-  const _UserPassword();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) {
-        return previous.password != current.password;
-      },
-      builder: (context, state) {
-        return CustomTextField(
-          labelText: 'Password',
-          hintText: 'Enter your password',
-          obscureText: true,
-          errorText: state.password.invalid ? 'The password is invalid' : null,
-          onChanged: (value) => context.read<LoginCubit>().changePassword(value),
-        );
-      },
-    );
-  }
-}
-
-class _SubmitButton extends StatelessWidget {
-  const _SubmitButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) {
-        return previous.status != current.status;
-      },
-      builder: (context, state) {
-        return state.status == FormzStatus.submissionInProgress
-            ? const CircularProgressIndicator()
-            : FilledButton(
-                onPressed: () {
-                  state.status == FormzStatus.valid
-                      ? context.read<LoginCubit>().loginWithCredentials()
-                      : ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.errorMessage),
-                          ),
-                        );
-                },
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50.0)),
-                ),
-                child: Text(
-                  'Sign In',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal),
-                ),
-              );
-      },
-    );
-  }
-}
-
-class _Footer extends StatelessWidget {
-  const _Footer();
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          const TextSpan(text: "Don't have an account? "),
-          TextSpan(
-            text: 'Sign up',
-            style: Theme.of(context).textTheme.labelLarge,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                context.goNamed(AppRoutes.signup.name);
-              },
-          ),
-        ],
       ),
     );
   }
