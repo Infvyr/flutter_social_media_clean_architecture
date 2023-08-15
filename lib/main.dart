@@ -36,11 +36,13 @@ class MainApp extends StatelessWidget {
             create: (context) => LoginCubit(loginUser: LoginUser(context.read<AuthRepositoryImpl>())),
           ),
         ],
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: CustomTheme.theme(),
-          routerConfig: AppRouter().router,
-        ),
+        child: Builder(builder: (context) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: CustomTheme.theme(),
+            routerConfig: AppRouter(context.read<AuthBloc>()).router,
+          );
+        }),
       ),
     );
   }

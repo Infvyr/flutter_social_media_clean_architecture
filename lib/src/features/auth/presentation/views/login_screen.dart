@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       ),
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          debugPrint('LoginScreen valid? : ${state.isValid}');
+          print('state.status = ${state.status}');
           if (state.status.isFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()

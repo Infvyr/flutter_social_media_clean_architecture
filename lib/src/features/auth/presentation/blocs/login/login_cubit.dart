@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -21,6 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(
       username: username,
       isValid: Formz.validate([state.password, username]),
+      status: FormzSubmissionStatus.initial,
     ));
   }
 
@@ -29,12 +29,11 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(
       password: password,
       isValid: Formz.validate([password, state.username]),
+      status: FormzSubmissionStatus.initial,
     ));
   }
 
   Future<void> loginWithCredentials() async {
-    debugPrint('loginWithCredentials $state');
-
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
@@ -44,7 +43,10 @@ class LoginCubit extends Cubit<LoginState> {
             password: state.password,
           ),
         );
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
+        emit(state.copyWith(
+          status: FormzSubmissionStatus.success,
+          isValid: false,
+        ));
       } on AuthCredentialsException catch (error) {
         emit(state.copyWith(
           status: FormzSubmissionStatus.failure,
