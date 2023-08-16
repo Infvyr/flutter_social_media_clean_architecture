@@ -1,4 +1,4 @@
-import 'package:flutter_social_media_with_clean_architecture/src/shared/domain/index.dart';
+import '../../domain/index.dart';
 
 class UserModel {
   const UserModel({

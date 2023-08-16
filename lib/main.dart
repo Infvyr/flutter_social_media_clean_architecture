@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/signup/signup_cubit.dart';
+
+import 'src/config/index.dart';
+import 'src/features/auth/data/data_sources/index.dart';
+import 'src/features/auth/data/repositories/index.dart';
 import 'src/features/auth/domain/usecases/index.dart';
 import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login/login_cubit.dart';
-import 'src/features/auth/data/data_sources/index.dart';
-import 'src/features/auth/data/repositories/index.dart';
-
-import 'src/config/index.dart';
+import 'src/features/auth/presentation/blocs/signup/signup_cubit.dart';
 
 void main() {
   runApp(const MainApp());
