@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/signup/signup_cubit.dart';
 import 'src/features/auth/domain/usecases/index.dart';
 import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login/login_cubit.dart';
@@ -35,14 +36,19 @@ class MainApp extends StatelessWidget {
           BlocProvider(
             create: (context) => LoginCubit(loginUser: LoginUser(context.read<AuthRepositoryImpl>())),
           ),
+          BlocProvider(
+            create: (context) => SignupCubit(signupUser: SignupUser(context.read<AuthRepositoryImpl>())),
+          ),
         ],
-        child: Builder(builder: (context) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: CustomTheme.theme(),
-            routerConfig: AppRouter(context.read<AuthBloc>()).router,
-          );
-        }),
+        child: Builder(
+          builder: (context) {
+            return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              theme: CustomTheme.theme(),
+              routerConfig: AppRouter(context.read<AuthBloc>()).router,
+            );
+          },
+        ),
       ),
     );
   }

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../blocs/login/login_cubit.dart';
+import '../../blocs/signup/signup_cubit.dart';
 
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({super.key});
+class SignupSubmitButton extends StatelessWidget {
+  const SignupSubmitButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<SignupCubit, SignupState>(
       builder: (context, state) {
+        debugPrint('SignupSubmitButton state.isValid: ${state.isValid}');
+
         return state.status.isInProgress
             ? const SizedBox(
                 height: 50.0,
@@ -19,14 +21,18 @@ class SubmitButton extends StatelessWidget {
                 ),
               )
             : FilledButton(
-                key: const Key('loginForm_submit'),
-                onPressed: state.isValid ? () => context.read<LoginCubit>().loginWithCredentials() : null,
+                key: const Key('signupForm_submit'),
+                onPressed: state.isValid
+                    ? () {
+                        context.read<SignupCubit>().signupWithCredentials(); //.whenComplete(() => context.pop());
+                      }
+                    : null,
                 style: ButtonStyle(
                   minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50.0)),
                   backgroundColor: MaterialStateProperty.all<Color>(state.isValid ? Colors.blueAccent : Colors.grey),
                 ),
                 child: Text(
-                  'Sign In',
+                  'Sign Up',
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal),
                 ),
               );

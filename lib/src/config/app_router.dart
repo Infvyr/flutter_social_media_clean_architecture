@@ -1,11 +1,11 @@
 import 'dart:async' show Stream, StreamSubscription;
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/index.dart';
 import '../features/auth/data/data_sources/index.dart';
+import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/index.dart';
 import '../features/feed/presentation/index.dart';
 
@@ -23,16 +23,12 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.feed.name,
         path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return const FeedScreen();
-        },
+        builder: (_, __) => const FeedScreen(),
         routes: [
           GoRoute(
             name: AppRoutes.discover.name,
             path: AppRoutes.discover.name,
-            builder: (BuildContext context, GoRouterState state) {
-              return const DiscoverScreen();
-            },
+            builder: (_, __) => const DiscoverScreen(),
             routes: <RouteBase>[
               GoRoute(
                 name: AppRoutes.user.name,
@@ -49,16 +45,12 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.login.name,
         path: '/${AppRoutes.login.name}',
-        builder: (BuildContext context, GoRouterState state) {
-          return const LoginScreen();
-        },
+        builder: (_, __) => const LoginScreen(),
         routes: [
           GoRoute(
             name: AppRoutes.signup.name,
             path: AppRoutes.signup.name,
-            builder: (BuildContext context, GoRouterState state) {
-              return const SignupScreen();
-            },
+            builder: (_, __) => const SignupScreen(),
           ),
         ],
       ),
@@ -67,20 +59,20 @@ class AppRouter {
       final loginLocation = state.namedLocation(AppRoutes.login.name);
       final signupLocation = state.namedLocation(AppRoutes.signup.name);
       final isLoggedIn = authBloc.state.status == AuthStatus.authenticated;
-      // final isLoggingIn = state.matchedLocation == loginLocation;
+      final isLoggingIn = state.matchedLocation == loginLocation;
       final isSigningUp = state.matchedLocation == signupLocation;
 
-      if (!isLoggedIn && !isSigningUp) {
+      if (!isLoggedIn && !isLoggingIn && !isSigningUp) {
         return loginLocation;
       }
 
-      if (isLoggedIn || isSigningUp) {
+      if (isLoggedIn && isLoggingIn) {
         return '/';
       }
 
-      // if (isLoggedIn && isSigningUp) {
-      //   return '/';
-      // }
+      if (isLoggedIn && isSigningUp) {
+        return '/';
+      }
       return null;
     },
     refreshListenable: GoRouterRefreshStream(authBloc.stream),

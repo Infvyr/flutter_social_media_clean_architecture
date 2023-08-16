@@ -10,10 +10,11 @@ import '../../../domain/usecases/index.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final LoginUser _loginUser;
   LoginCubit({required LoginUser loginUser})
       : _loginUser = loginUser,
         super(const LoginState());
+
+  final LoginUser _loginUser;
 
   void onUsernameChanged(String value) {
     final username = Username.dirty(value);

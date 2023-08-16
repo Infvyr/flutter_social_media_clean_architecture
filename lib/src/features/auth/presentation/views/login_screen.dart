@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../../../constants/index.dart';
 import '../blocs/login/login_cubit.dart';
 import '../index.dart';
 
@@ -16,12 +17,13 @@ class LoginScreen extends StatelessWidget {
       ),
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          print('state.status = ${state.status}');
           if (state.status.isFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(content: Text(state.errorMessage ?? 'Something went wrong. Please try again later.')),
+                SnackBar(
+                  content: Text(state.errorMessage ?? AppStrings.defaultErrorText),
+                ),
               );
           }
         },
@@ -37,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 20.0),
                 SubmitButton(),
                 Spacer(flex: 2),
-                Footer(),
+                LoginFooter(),
               ],
             ),
           ),

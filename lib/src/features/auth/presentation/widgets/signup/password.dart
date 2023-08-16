@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../constants/index.dart';
 import '../../../../../shared/presentation/index.dart';
-import '../../blocs/login/login_cubit.dart';
+import '../../blocs/signup/signup_cubit.dart';
 
-class UserPassword extends StatefulWidget {
-  const UserPassword({super.key});
+class SignupUserPassword extends StatefulWidget {
+  const SignupUserPassword({super.key});
 
   @override
-  State<UserPassword> createState() => _UserPasswordState();
+  State<SignupUserPassword> createState() => _SignupUserPasswordState();
 }
 
-class _UserPasswordState extends State<UserPassword> {
+class _SignupUserPasswordState extends State<SignupUserPassword> {
   late FocusNode focusNode;
   bool isInFocus = false;
   bool isObscure = true;
@@ -37,19 +37,19 @@ class _UserPasswordState extends State<UserPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<SignupCubit, SignupState>(
       buildWhen: (previous, current) {
         return previous.password != current.password;
       },
       builder: (context, state) {
         return CustomTextField(
-          key: const Key('loginForm_password'),
+          key: const Key('signupForm_password'),
           labelText: 'Password',
           hintText: 'Enter your password',
           obscureText: isObscure,
           focusNode: focusNode,
           errorText: state.password.displayError != null ? '' : null,
-          onChanged: (password) => context.read<LoginCubit>().onPasswordChanged(password),
+          onChanged: (password) => context.read<SignupCubit>().onPasswordChanged(password),
           suffix: IconButton(
             icon: isInFocus
                 ? Icon(
