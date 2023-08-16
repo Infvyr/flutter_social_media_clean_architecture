@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../constants/index.dart';
+import '../../../constants/index.dart';
 
 class CustomNavBar extends StatelessWidget {
   const CustomNavBar({super.key});
@@ -41,7 +43,9 @@ class CustomNavBar extends StatelessWidget {
               iconSize: 30,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<AuthBloc>().add(AuthLogoutUserEvent());
+              },
               icon: const Icon(Icons.person),
               iconSize: 30,
             ),

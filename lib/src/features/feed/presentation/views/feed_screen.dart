@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../shared/presentation/custom_nav_bar.dart';
+import '../../../../shared/presentation/widgets/custom_nav_bar.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
