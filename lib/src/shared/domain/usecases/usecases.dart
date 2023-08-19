@@ -6,8 +6,8 @@ abstract class UseCase<Type, Params> {
 
 abstract class Params extends Equatable {}
 
-class NoParams extends Equatable {
-  const NoParams();
+class GetPostsByUserParams extends Equatable {
+  const GetPostsByUserParams();
 
   @override
   List<Object?> get props => [];

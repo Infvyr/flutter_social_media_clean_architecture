@@ -30,7 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthGetStatusEvent>(_onAuthGetStatus);
     on<AuthLogoutUserEvent>(_onAuthLogoutUser);
 
-    _authStatusSubscription = _getAuthStatus(const NoParams()).listen(
+    _authStatusSubscription = _getAuthStatus(const GetPostsByUserParams()).listen(
       (status) => add(AuthGetStatusEvent(status)),
     );
   }
@@ -44,10 +44,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return switch (event.status) {
       AuthStatus.unauthenticated => emit(const AuthState.unauthenticated()),
       AuthStatus.authenticated => {
-          debugPrint('AuthStatus.authenticated ${await _getLoggedInUser(const NoParams())}'),
+          debugPrint('AuthStatus.authenticated ${await _getLoggedInUser(const GetPostsByUserParams())}'),
           emit(
             AuthState.authenticated(
-              await _getLoggedInUser(const NoParams()),
+              await _getLoggedInUser(const GetPostsByUserParams()),
             ),
           )
         },
@@ -61,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     debugPrint('AuthLogoutUser _onAuthLogoutUser...');
 
-    await _logoutUser(const NoParams());
+    await _logoutUser(const GetPostsByUserParams());
     emit(const AuthState.unauthenticated());
   }
 
