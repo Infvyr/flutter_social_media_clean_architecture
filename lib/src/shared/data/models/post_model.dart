@@ -1,6 +1,11 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
 import '../../domain/entities/post.dart';
 import 'user_model.dart';
 
+part 'post_model.g.dart';
+
+@HiveType(typeId: 1)
 class PostModel {
   const PostModel({
     required this.id,
@@ -9,9 +14,13 @@ class PostModel {
     required this.assetPath,
   });
 
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final UserModel userModel;
+  @HiveField(2)
   final String caption;
+  @HiveField(3)
   final String assetPath;
 
   factory PostModel.fromJson(
