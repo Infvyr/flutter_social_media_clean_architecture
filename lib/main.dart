@@ -11,6 +11,7 @@ import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login/login_cubit.dart';
 import 'src/features/auth/presentation/blocs/signup/signup_cubit.dart';
 import 'src/features/feed/domain/usecases/index.dart';
+import 'src/features/feed/presentation/blocs/discover/discover_bloc.dart';
 import 'src/features/feed/presentation/blocs/feed/feed_bloc.dart';
 
 void main() {
@@ -41,13 +42,32 @@ class MainApp extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => LoginCubit(loginUser: LoginUser(context.read<AuthRepositoryImpl>())),
+            create: (context) => LoginCubit(
+              loginUser: LoginUser(
+                context.read<AuthRepositoryImpl>(),
+              ),
+            ),
           ),
           BlocProvider(
-            create: (context) => SignupCubit(signupUser: SignupUser(context.read<AuthRepositoryImpl>())),
+            create: (context) => SignupCubit(
+              signupUser: SignupUser(
+                context.read<AuthRepositoryImpl>(),
+              ),
+            ),
           ),
           BlocProvider(
-            create: (context) => FeedBloc(getPosts: GetPosts(context.read<PostRepositoryImpl>()))..add(GetFeedPostsEvent()),
+            create: (context) => FeedBloc(
+              getPosts: GetPosts(
+                context.read<PostRepositoryImpl>(),
+              ),
+            )..add(GetFeedPostsEvent()),
+          ),
+          BlocProvider(
+            create: (context) => DiscoverBloc(
+              getDiscoverUsers: GetUsers(
+                context.read<UserRepositoryImpl>(),
+              ),
+            )..add(const GetDiscoverUsersEvent()),
           ),
         ],
         child: Builder(

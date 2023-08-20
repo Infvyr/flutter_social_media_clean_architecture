@@ -15,7 +15,7 @@ class FeedScreen extends StatelessWidget {
       ),
       bottomNavigationBar: const CustomNavBar(),
       body: BlocBuilder<FeedBloc, FeedState>(
-        builder: (context, state) {
+        builder: (_, state) {
           if (state is FeedLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
