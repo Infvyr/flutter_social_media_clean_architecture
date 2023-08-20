@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../shared/presentation/widgets/custom_nav_bar.dart';
+import '../../../../shared/presentation/index.dart';
 import '../blocs/feed/feed_bloc.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -21,16 +21,7 @@ class FeedScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is FeedLoadedState) {
-            return ListView.builder(
-              itemCount: state.posts.length,
-              itemBuilder: (context, index) {
-                final post = state.posts[index];
-                return ListTile(
-                  title: Text(post.caption),
-                  subtitle: Text(post.user.name.value),
-                );
-              },
-            );
+            return VideoPlayerList(posts: state.posts);
           } else {
             return const Center(
               child: Text('Something went wrong!'),
