@@ -1,5 +1,10 @@
-import 'package:flutter_social_media_with_clean_architecture/src/shared/domain/index.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../domain/index.dart';
+
+part 'user_model.g.dart';
+
+@HiveType(typeId: 0)
 class UserModel {
   const UserModel({
     required this.id,
@@ -9,10 +14,15 @@ class UserModel {
     this.avatarUrl,
   });
 
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final int followers;
+  @HiveField(3)
   final int followings;
+  @HiveField(4)
   final String? avatarUrl;
 
   factory UserModel.fromJson(Map<String, dynamic> json) {

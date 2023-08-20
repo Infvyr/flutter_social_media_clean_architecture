@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/auth/presentation/blocs/signup/signup_cubit.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../constants/index.dart';
+import '../blocs/signup/signup_cubit.dart';
 import '../index.dart';
 
 class SignupScreen extends StatelessWidget {
