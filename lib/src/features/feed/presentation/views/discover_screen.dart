@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../shared/presentation/index.dart';
 import '../blocs/discover/discover_bloc.dart';
+import '../index.dart';
 
 class DiscoverScreen extends StatelessWidget {
   const DiscoverScreen({super.key});
@@ -10,9 +11,6 @@ class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Discover screen'),
-      ),
       bottomNavigationBar: const CustomNavBar(),
       body: BlocBuilder<DiscoverBloc, DiscoverState>(
         builder: (_, state) {
@@ -21,7 +19,7 @@ class DiscoverScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is DiscoverLoadedState) {
-            return const SizedBox(); // UserList(users: state.users);
+            return DiscoverCardGrid(users: state.users);
           } else {
             return const Center(
               child: Text('Something went wrong!'),

@@ -31,6 +31,9 @@ class MainApp extends StatelessWidget {
         RepositoryProvider(
           create: (_) => PostRepositoryImpl(MockFeedDataSourceImpl()),
         ),
+        RepositoryProvider(
+          create: (_) => UserRepositoryImpl(MockFeedDataSourceImpl()),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [

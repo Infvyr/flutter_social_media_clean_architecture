@@ -10,16 +10,19 @@ class CustomGradientOverlay extends StatelessWidget {
       Colors.transparent,
       Colors.black,
     ],
+    this.decorationBorderRadius = 0,
   });
 
   final List<double> stops;
   final List<Color> colors;
+  final double decorationBorderRadius;
 
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
       child: DecoratedBox(
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(decorationBorderRadius)),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
