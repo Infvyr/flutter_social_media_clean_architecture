@@ -1,13 +1,13 @@
 import 'dart:async' show Stream, StreamSubscription;
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/content/presentation/index.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/index.dart';
 import '../features/auth/data/data_sources/index.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/index.dart';
+import '../features/content/presentation/index.dart';
 import '../features/feed/presentation/index.dart';
 
 class AppRouter {

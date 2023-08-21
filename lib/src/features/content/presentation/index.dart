@@ -1,1 +1,1 @@
-export 'add_content_screen.dart';
+export 'view/add_content_screen.dart';

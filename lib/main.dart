@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_media_with_clean_architecture/src/features/content/presentation/blocs/add_content/add_content_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'src/config/index.dart';
@@ -81,6 +82,7 @@ class MainApp extends StatelessWidget {
               ),
             )..add(const GetDiscoverUsersEvent()),
           ),
+          BlocProvider(create: (context) => AddContentCubit()),
         ],
         child: Builder(
           builder: (context) {
