@@ -4,4 +4,5 @@ enum AppRoutes {
   feed,
   discover,
   user,
+  addContent,
 }

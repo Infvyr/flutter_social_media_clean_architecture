@@ -1,6 +1,7 @@
 import 'dart:async' show Stream, StreamSubscription;
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_social_media_with_clean_architecture/src/features/content/presentation/index.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/index.dart';
@@ -53,6 +54,11 @@ class AppRouter {
             builder: (_, __) => const SignupScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        name: AppRoutes.addContent.name,
+        path: '/${AppRoutes.addContent.name}',
+        builder: (_, __) => const AddContentScreen(),
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {

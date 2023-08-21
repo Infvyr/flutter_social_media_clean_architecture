@@ -33,7 +33,9 @@ class CustomNavBar extends StatelessWidget {
               iconSize: 30,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.goNamed(AppRoutes.addContent.name);
+              },
               icon: const Icon(Icons.add_circle),
               iconSize: 30,
             ),
