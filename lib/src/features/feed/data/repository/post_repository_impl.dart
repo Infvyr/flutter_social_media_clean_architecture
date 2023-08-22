@@ -31,4 +31,7 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<List<Post>> getPostsByUser(String userId) => mockFeedDataSource.getPostsByUser(userId);
+
+  @override
+  Future<void> createPost(Post post) => localFeedDatasource.addPost(post);
 }

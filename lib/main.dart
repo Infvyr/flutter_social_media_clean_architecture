@@ -4,6 +4,7 @@ import 'package:flutter_social_media_with_clean_architecture/src/features/conten
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'src/config/index.dart';
+import 'src/features/content/domain/usecases/index.dart';
 import 'src/features/feed/data/data_sources/index.dart';
 import 'src/features/feed/data/repository/index.dart';
 import 'src/features/auth/data/data_sources/index.dart';
@@ -82,7 +83,13 @@ class MainApp extends StatelessWidget {
               ),
             )..add(const GetDiscoverUsersEvent()),
           ),
-          BlocProvider(create: (context) => AddContentCubit()),
+          BlocProvider(
+            create: (context) => AddContentCubit(
+              createPost: CreatePost(
+                context.read<PostRepositoryImpl>(),
+              ),
+            ),
+          ),
         ],
         child: Builder(
           builder: (context) {

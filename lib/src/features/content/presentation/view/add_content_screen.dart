@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/content/presentation/blocs/add_content/add_content_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -10,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../../constants/index.dart';
 import '../../../../shared/presentation/index.dart';
+import '../blocs/add_content/add_content_cubit.dart';
 
 class AddContentScreen extends StatefulWidget {
   const AddContentScreen({super.key});
