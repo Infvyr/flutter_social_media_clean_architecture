@@ -16,7 +16,7 @@ class LocalFeedDatasourceImpl implements LocalFeedDatasource {
   @override
   Future<List<Post>> getPosts() async {
     Box<PostModel> box = await _openBox() as Box<PostModel>;
-    return box.values.map((post) => post.toEntity()).toList();
+    return box.values.toList().map((post) => post.toEntity()).toList();
   }
 
   @override

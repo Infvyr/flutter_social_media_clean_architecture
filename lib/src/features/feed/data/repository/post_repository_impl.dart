@@ -15,14 +15,14 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<List<Post>> getPosts() async {
-    /// TODO: load from local storage if no internet connection
-    final localStorage = await localFeedDatasource.getPosts();
-    if (localStorage.isEmpty) {
-      final mockStorage = await mockFeedDataSource.getPosts();
-      for (final post in mockStorage) {
+    /// TODO: load data from local storage if no internet connection
+    final localStorage = localFeedDatasource.getPosts();
+    if ((await localStorage).isEmpty) {
+      final posts = await mockFeedDataSource.getPosts();
+      for (final post in posts) {
         await localFeedDatasource.addPost(post);
       }
-      return mockStorage;
+      return posts;
     } else {
       debugPrint('Loaded from local Hive storage');
       return localStorage;
@@ -30,8 +30,8 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<List<Post>> getPostsByUser(String userId) => mockFeedDataSource.getPostsByUser(userId);
+  Future<List<Post>> getPostsByUser(String userId) async => await mockFeedDataSource.getPostsByUser(userId);
 
   @override
-  Future<void> createPost(Post post) => localFeedDatasource.addPost(post);
+  Future<void> createPost(Post post) async => await localFeedDatasource.addPost(post);
 }

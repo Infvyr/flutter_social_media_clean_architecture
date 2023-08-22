@@ -93,7 +93,7 @@ class MockAuthDataSourcesImpl extends MockAuthDataSources {
 final List<User> _allUsers = [
   const User(
     id: 'user_1',
-    name: Username.dirty('Alexander'),
+    name: Username.dirty('Jane Doe'),
     avatarUrl: 'assets/images/user_1.jpg',
   ),
   const User(

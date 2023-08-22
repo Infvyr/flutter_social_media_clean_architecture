@@ -7,7 +7,7 @@ class CreatePost implements UseCase<void, CreatePostParams> {
   final PostRepository repository;
 
   @override
-  call(params) {
+  Future<void> call(params) {
     return repository.createPost(params.post);
   }
 }

@@ -10,10 +10,11 @@ import '../../../domain/usecases/create_post.dart';
 part 'add_content_state.dart';
 
 class AddContentCubit extends Cubit<AddContentState> {
-  final CreatePost _createPost;
   AddContentCubit({required CreatePost createPost})
       : _createPost = createPost,
         super(AddContentState.initial());
+
+  final CreatePost _createPost;
 
   void videoChanged(File video) {
     emit(
@@ -33,12 +34,12 @@ class AddContentCubit extends Cubit<AddContentState> {
     );
   }
 
-  void submit() {
+  void submit(User user) {
     emit(state.copyWith(status: AddContentStatus.submitting));
     try {
       final post = Post(
         id: const Uuid().v4(),
-        user: User.empty,
+        user: user,
         caption: state.caption,
         assetPath: state.video!.path,
       );

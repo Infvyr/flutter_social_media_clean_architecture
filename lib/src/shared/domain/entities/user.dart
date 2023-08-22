@@ -28,7 +28,9 @@ class Username extends FormzInput<String, UsernameValidationError> {
   const Username.pure() : super.pure('');
   const Username.dirty([super.value = '']) : super.dirty();
 
-  static final _usernameRegExp = RegExp(r'^[a-zA-Z0-9_]{2,}$');
+  /// username should be at least 2 characters long and can only contain letters, numbers, underscores
+  /// username could contains two words separated by a space but not start or end with a space
+  static final _usernameRegExp = RegExp(r'^[a-zA-Z0-9_]{2,}(?: [a-zA-Z0-9_]+)*$');
 
   @override
   UsernameValidationError? validator(String value) {
