@@ -32,7 +32,7 @@ class AppRouter {
             builder: (_, __) => const DiscoverScreen(),
             routes: <RouteBase>[
               GoRoute(
-                name: AppRoutes.user.name,
+                name: 'user',
                 path: ':userId',
                 builder: (BuildContext context, GoRouterState state) {
                   /// TODO: Change to the user screen
@@ -59,6 +59,11 @@ class AppRouter {
         name: AppRoutes.addContent.name,
         path: '/${AppRoutes.addContent.name}',
         builder: (_, __) => const AddContentScreen(),
+      ),
+      GoRoute(
+        name: AppRoutes.profile.name,
+        path: '/${AppRoutes.profile.name}',
+        builder: (_, __) => const ProfileScreen(),
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {
