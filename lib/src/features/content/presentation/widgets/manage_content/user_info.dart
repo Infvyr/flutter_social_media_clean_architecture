@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../shared/domain/index.dart';
+import '../../../../auth/domain/entities/index.dart';
 import '../../index.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key, required this.user});
 
-  final User user;
+  final LoggedInUser user;
 
   @override
   Widget build(BuildContext context) {

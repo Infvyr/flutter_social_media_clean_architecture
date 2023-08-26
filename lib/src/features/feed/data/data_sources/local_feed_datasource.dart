@@ -8,6 +8,7 @@ abstract class LocalFeedDatasource {
   Future<List<Post>> getPostsByUser(String userId);
   Future<void> addPost(Post post);
   Future<void> deleteAllPost();
+  Future<void> deletePost(String postId);
 }
 
 class LocalFeedDatasourceImpl implements LocalFeedDatasource {
@@ -36,6 +37,12 @@ class LocalFeedDatasourceImpl implements LocalFeedDatasource {
   Future<void> deleteAllPost() async {
     final box = await _openBox();
     await box.clear();
+  }
+
+  @override
+  Future<void> deletePost(String postId) async {
+    final box = await _openBox();
+    await box.delete(postId);
   }
 
   Future<Box> _openBox() async => await Hive.openBox<PostModel>(boxName);

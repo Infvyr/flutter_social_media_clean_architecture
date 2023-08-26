@@ -10,3 +10,4 @@ export 'widgets/manage_content/user_info_container.dart';
 export 'widgets/manage_content/user_info_header.dart';
 export 'widgets/manage_content/app_bar.dart';
 export 'widgets/manage_content/uploaded_media.dart';
+export 'widgets/manage_content/delete_post.dart';

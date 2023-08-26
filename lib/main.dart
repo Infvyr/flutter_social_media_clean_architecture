@@ -98,6 +98,9 @@ class MainApp extends StatelessWidget {
               getPostsByUser: GetPostsByUser(
                 context.read<PostRepositoryImpl>(),
               ),
+              deletePost: DeletePost(
+                context.read<PostRepositoryImpl>(),
+              ),
             )..add(
                 ManageContentGetPostsByUserEvent(
                   userId: context.read<AuthBloc>().state.user.id,

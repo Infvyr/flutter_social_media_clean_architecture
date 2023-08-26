@@ -46,4 +46,9 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<void> createPost(Post post) async => await localFeedDatasource.addPost(post);
+
+  @override
+
+  /// TODO: delete post from local storage or remote storage
+  Future<void> deletePost(String postId) async => await localFeedDatasource.deletePost(postId);
 }

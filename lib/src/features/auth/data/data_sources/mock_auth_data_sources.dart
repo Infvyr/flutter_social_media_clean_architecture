@@ -95,6 +95,8 @@ final List<User> _allUsers = [
     id: 'user_1',
     name: Username.dirty('Jane Doe'),
     avatarUrl: 'assets/images/image_1.jpg',
+    followers: 211,
+    followings: 21,
   ),
   const User(
     id: 'user_2',
