@@ -1,3 +1,5 @@
+import 'dart:io' show File;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,13 +7,13 @@ import 'package:go_router/go_router.dart';
 import '../../../../../constants/index.dart';
 import '../../blocs/add_content/add_content_cubit.dart';
 
-class AddContentAppBar extends StatelessWidget {
+class AddContentAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AddContentAppBar({
     super.key,
-    required this.state,
+    required this.video,
   });
 
-  final AddContentState state;
+  final File? video;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class AddContentAppBar extends StatelessWidget {
       title: const Text('Add a post'),
       centerTitle: true,
       actions: [
-        state.video != null
+        video != null
             ? IconButton(
                 onPressed: () => context.read<AddContentCubit>().reset(),
                 icon: const Icon(Icons.restore_rounded),
@@ -31,4 +33,7 @@ class AddContentAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

@@ -94,17 +94,17 @@ final List<User> _allUsers = [
   const User(
     id: 'user_1',
     name: Username.dirty('Jane Doe'),
-    avatarUrl: 'assets/images/user_1.jpg',
+    avatarUrl: 'assets/images/image_1.jpg',
   ),
   const User(
     id: 'user_2',
     name: Username.dirty('Mark'),
-    avatarUrl: 'assets/images/user_2.jpg',
+    avatarUrl: 'assets/images/image_2.jpg',
   ),
   const User(
     id: 'user_3',
     name: Username.dirty('Mary'),
-    avatarUrl: 'assets/images/user_3.jpg',
+    avatarUrl: 'assets/images/image_3.jpg',
   ),
 ];
 

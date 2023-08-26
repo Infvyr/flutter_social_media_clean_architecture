@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_media_with_clean_architecture/src/features/content/presentation/index.dart';
 
 import '../../../../../shared/domain/index.dart';
+import '../../index.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key, required this.user});

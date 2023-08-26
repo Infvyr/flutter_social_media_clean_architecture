@@ -37,8 +37,8 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
           setState(() {});
         },
       )
-      ..setLooping(true)
-      ..play();
+      ..setLooping(true);
+    // ..play();
   }
 
   @override

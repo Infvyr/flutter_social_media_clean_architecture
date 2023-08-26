@@ -23,10 +23,7 @@ class AddContentScreen extends StatelessWidget {
       buildWhen: (previous, current) => previous.video != current.video,
       builder: (context, state) {
         return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: AddContentAppBar(state: state),
-          ),
+          appBar: AddContentAppBar(video: state.video),
           body: state.video == null
               ? const AddPost()
               : state.video != null

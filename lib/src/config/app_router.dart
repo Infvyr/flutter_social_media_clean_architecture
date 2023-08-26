@@ -63,7 +63,7 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.profile.name,
         path: '/${AppRoutes.profile.name}',
-        builder: (_, __) => const ProfileScreen(),
+        builder: (_, __) => const ManageContentScreen(),
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {

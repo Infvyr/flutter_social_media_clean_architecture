@@ -5,6 +5,7 @@ import '../../../../shared/domain/index.dart';
 
 abstract class LocalFeedDatasource {
   Future<List<Post>> getPosts();
+  Future<List<Post>> getPostsByUser(String userId);
   Future<void> addPost(Post post);
   Future<void> deleteAllPost();
 }
@@ -17,6 +18,12 @@ class LocalFeedDatasourceImpl implements LocalFeedDatasource {
   Future<List<Post>> getPosts() async {
     Box<PostModel> box = await _openBox() as Box<PostModel>;
     return box.values.toList().map((post) => post.toEntity()).toList();
+  }
+
+  @override
+  Future<List<Post>> getPostsByUser(String userId) async {
+    Box<PostModel> box = await _openBox() as Box<PostModel>;
+    return box.values.where((post) => post.userModel.id == userId).toList().map((post) => post.toEntity()).toList();
   }
 
   @override
