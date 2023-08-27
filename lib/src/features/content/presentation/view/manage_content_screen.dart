@@ -13,33 +13,35 @@ class ManageContentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.read<AuthBloc>().state.user;
 
-    return Scaffold(
-      appBar: ManageContentAppBar(name: user.name.value),
-      body: BlocBuilder<ManageContentBloc, ManageContentState>(
-        builder: (context, state) {
-          if (state is ManageContentLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ManageContentLoadedState) {
-            return DefaultTabController(
-              length: 2,
-              child: NestedScrollView(
-                headerSliverBuilder: (_, __) => [
-                  SliverToBoxAdapter(child: UserInfoHeader(user: user)),
-                ],
-                body: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    ManageUploadedVideos(posts: state.posts),
-                    const Center(child: Text('Liked')),
+    return ScaffoldMessenger(
+      child: Scaffold(
+        appBar: ManageContentAppBar(name: user.name.value),
+        body: BlocBuilder<ManageContentBloc, ManageContentState>(
+          builder: (context, state) {
+            if (state is ManageContentLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is ManageContentLoadedState) {
+              return DefaultTabController(
+                length: 2,
+                child: NestedScrollView(
+                  headerSliverBuilder: (_, __) => [
+                    SliverToBoxAdapter(child: UserInfoHeader(user: user)),
                   ],
+                  body: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ManageUploadedVideos(posts: state.posts),
+                      const Center(child: Text('Liked')),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else {
-            return const AlertError();
-          }
-        },
+              );
+            } else {
+              return const AlertError();
+            }
+          },
+        ),
       ),
     );
   }

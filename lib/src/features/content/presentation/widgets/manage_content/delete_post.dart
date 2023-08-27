@@ -9,12 +9,10 @@ class ManageDeletePost extends StatelessWidget {
     super.key,
     required this.post,
     required this.child,
-    // required this.posts,
   });
 
   final Post post;
   final Widget child;
-  // final List<Post> posts;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +24,7 @@ class ManageDeletePost extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
+                  duration: const Duration(seconds: 3),
                   content: RichText(
                     text: TextSpan(
                       text: 'Post ',
