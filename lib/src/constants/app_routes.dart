@@ -3,5 +3,6 @@ enum AppRoutes {
   signup,
   feed,
   discover,
-  user,
+  addContent,
+  profile,
 }

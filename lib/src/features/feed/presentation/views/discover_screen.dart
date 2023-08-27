@@ -16,6 +16,7 @@ class DiscoverScreen extends StatelessWidget {
         builder: (_, state) {
           if (state is DiscoverLoadingState) {
             return const Center(
+              /// TODO: Shimmer
               child: CircularProgressIndicator(),
             );
           } else if (state is DiscoverLoadedState) {

@@ -2,7 +2,7 @@ List<Map<String, dynamic>> posts = [
   {
     'id': 'post_1',
     'userId': 'user_1',
-    'caption': 'This is a post',
+    'caption': 'This is a post by user 1',
     'assetPath': 'assets/videos/video_1.mp4',
   },
   {

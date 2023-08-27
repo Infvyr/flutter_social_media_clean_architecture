@@ -20,6 +20,7 @@ class VideoPlayerList extends StatelessWidget {
             assetPath: post.assetPath,
             username: post.user.name.value,
             caption: post.caption,
+            postId: post.id,
           ),
       ],
     );
