@@ -1,13 +1,18 @@
 import 'dart:async' show Stream, StreamSubscription;
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/index.dart';
 import '../features/auth/data/data_sources/index.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/index.dart';
+import '../features/content/domain/usecases/index.dart';
+import '../features/content/presentation/blocs/manage_content/manage_content_bloc.dart';
 import '../features/content/presentation/index.dart';
+import '../features/feed/data/repository/index.dart';
+import '../features/feed/domain/usecases/index.dart';
 import '../features/feed/presentation/index.dart';
 
 class AppRouter {
@@ -63,7 +68,21 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.profile.name,
         path: '/${AppRoutes.profile.name}',
-        builder: (_, __) => const ManageContentScreen(),
+        builder: (_, __) => BlocProvider(
+          create: (context) => ManageContentBloc(
+            getPostsByUser: GetPostsByUser(
+              context.read<PostRepositoryImpl>(),
+            ),
+            deletePost: DeletePost(
+              context.read<PostRepositoryImpl>(),
+            ),
+          )..add(
+              ManageContentGetPostsByUserEvent(
+                userId: context.read<AuthBloc>().state.user.id,
+              ),
+            ),
+          child: const ManageContentScreen(),
+        ),
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {

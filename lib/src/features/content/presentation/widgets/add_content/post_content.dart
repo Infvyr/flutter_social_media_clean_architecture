@@ -17,7 +17,7 @@ class PostContent extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        VideoPlayerItem(assetPath: state.video!.path),
+        VideoPlayerItem(assetPath: state.video!.path, postId: UniqueKey().toString()),
         Positioned(
           bottom: 20,
           left: 20,

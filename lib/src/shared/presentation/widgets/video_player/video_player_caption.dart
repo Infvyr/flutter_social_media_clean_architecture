@@ -12,30 +12,25 @@ class VidedoPlayerCaption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.75,
-          height: 125,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                username,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                caption,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+    return Positioned(
+      left: 16.0,
+      right: 16.0,
+      bottom: 16.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            username,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-        ),
+          const SizedBox(height: 5),
+          Text(
+            caption,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
       ),
     );
   }

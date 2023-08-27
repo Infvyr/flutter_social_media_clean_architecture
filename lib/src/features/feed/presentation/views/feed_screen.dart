@@ -9,25 +9,26 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Feed screen'),
-      ),
-      bottomNavigationBar: const CustomNavBar(),
-      body: BlocBuilder<FeedBloc, FeedState>(
-        builder: (_, state) {
-          if (state is FeedLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is FeedLoadedState) {
-            return VideoPlayerList(posts: state.posts);
-          } else {
-            return const Center(
-              child: Text('Something went wrong!'),
-            );
-          }
-        },
+    return SafeArea(
+      maintainBottomViewPadding: true,
+      child: Scaffold(
+        bottomNavigationBar: const CustomNavBar(),
+        body: BlocBuilder<FeedBloc, FeedState>(
+          builder: (_, state) {
+            if (state is FeedLoadingState) {
+              return const Center(
+                /// TODO: Shimmer
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is FeedLoadedState) {
+              return VideoPlayerList(posts: state.posts);
+            } else {
+              return const Center(
+                child: Text('Something went wrong!'),
+              );
+            }
+          },
+        ),
       ),
     );
   }

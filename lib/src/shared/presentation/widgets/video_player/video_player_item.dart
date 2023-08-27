@@ -2,6 +2,7 @@ import 'dart:io' show File;
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../index.dart';
 
@@ -11,11 +12,15 @@ class VideoPlayerItem extends StatefulWidget {
     required this.assetPath,
     this.caption,
     this.username,
+    this.postId,
+    this.isFullScreen = true,
   });
 
   final String assetPath;
   final String? caption;
   final String? username;
+  final String? postId;
+  final bool isFullScreen;
 
   @override
   State<VideoPlayerItem> createState() => _VideoPlayerItemState();
@@ -38,7 +43,6 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
         },
       )
       ..setLooping(true);
-    // ..play();
   }
 
   @override
@@ -47,27 +51,49 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     super.dispose();
   }
 
+  void runVideo() {
+    setState(() {
+      _controller.value.isPlaying ? _controller.pause() : _controller.play();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _controller.value.isInitialized
-        ? GestureDetector(
-            onTap: () {
-              setState(() {
-                _controller.value.isPlaying ? _controller.pause() : _controller.play();
-              });
-            },
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: Stack(
-                children: [
-                  VideoPlayer(_controller),
-                  const CustomGradientOverlay(),
-                  if (widget.caption != null || widget.username != null)
-                    VidedoPlayerCaption(username: widget.username!, caption: widget.caption!)
-                ],
-              ),
-            ),
-          )
-        : const SizedBox();
+    if (widget.isFullScreen) {
+      return GestureDetector(
+        onTap: runVideo,
+        child: VisibilityDetector(
+          key: Key(widget.postId!),
+          onVisibilityChanged: (info) {
+            if (_controller.value.isInitialized && info.visibleFraction <= 0.5) {
+              _controller.pause();
+            } else {
+              _controller.play();
+            }
+          },
+          child: VideoPlayerItemChild(
+            controller: _controller,
+            caption: widget.caption,
+            username: widget.username,
+          ),
+        ),
+      );
+    } else {
+      return GestureDetector(
+        onTap: runVideo,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: VideoPlayerItemChild(
+            controller: _controller,
+            caption: widget.caption,
+            username: widget.username,
+            isFullScreen: widget.isFullScreen,
+          ),
+        ),
+      );
+    }
   }
 }
