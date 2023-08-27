@@ -15,20 +15,40 @@ class PostRepositoryImpl implements PostRepository {
 
   @override
   Future<List<Post>> getPosts() async {
-    /// TODO: load from local storage if no internet connection
-    final localStorage = await localFeedDatasource.getPosts();
-    if (localStorage.isEmpty) {
-      final mockStorage = await mockFeedDataSource.getPosts();
-      for (final post in mockStorage) {
+    /// TODO: load data from local storage if no internet connection
+    final result = localFeedDatasource.getPosts();
+    if ((await result).isEmpty) {
+      final posts = await mockFeedDataSource.getPosts();
+      for (final post in posts) {
         await localFeedDatasource.addPost(post);
       }
-      return mockStorage;
+      return posts;
     } else {
-      debugPrint('Loaded from local Hive storage');
-      return localStorage;
+      debugPrint('Loaded posts from Hive storage');
+      return result;
     }
   }
 
   @override
-  Future<List<Post>> getPostsByUser(String userId) => mockFeedDataSource.getPostsByUser(userId);
+  Future<List<Post>> getPostsByUser(String userId) async {
+    final result = localFeedDatasource.getPostsByUser(userId);
+    if ((await result).isEmpty) {
+      final posts = await mockFeedDataSource.getPostsByUser(userId);
+      for (final post in posts) {
+        await localFeedDatasource.addPost(post);
+      }
+      return posts;
+    } else {
+      debugPrint('Loaded posts by user from Hive storage');
+      return result;
+    }
+  }
+
+  @override
+  Future<void> createPost(Post post) async => await localFeedDatasource.addPost(post);
+
+  @override
+
+  /// TODO: delete post from local storage or remote storage
+  Future<void> deletePost(String postId) async => await localFeedDatasource.deletePost(postId);
 }
