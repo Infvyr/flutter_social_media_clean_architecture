@@ -65,10 +65,12 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
         child: VisibilityDetector(
           key: Key(widget.postId!),
           onVisibilityChanged: (info) {
-            if (_controller.value.isInitialized && info.visibleFraction <= 0.5) {
-              _controller.pause();
-            } else {
-              _controller.play();
+            if (mounted) {
+              if (_controller.value.isInitialized && info.visibleFraction <= 0.5) {
+                _controller.pause();
+              } else {
+                _controller.play();
+              }
             }
           },
           child: VideoPlayerItemChild(
