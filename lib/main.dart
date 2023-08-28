@@ -9,6 +9,8 @@ import 'src/features/auth/domain/usecases/index.dart';
 import 'src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'src/features/auth/presentation/blocs/login/login_cubit.dart';
 import 'src/features/auth/presentation/blocs/signup/signup_cubit.dart';
+import 'src/features/chat/data/models/chat_model.dart';
+import 'src/features/chat/data/models/message_model.dart';
 import 'src/features/content/domain/usecases/index.dart';
 import 'src/features/content/presentation/blocs/add_content/add_content_cubit.dart';
 import 'src/features/content/presentation/index.dart';
@@ -24,6 +26,8 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(PostModelAdapter());
+  Hive.registerAdapter(ChatModelAdapter());
+  Hive.registerAdapter(MessageModelAdapter());
   runApp(const MainApp());
 }
 
