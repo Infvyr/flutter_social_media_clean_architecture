@@ -30,7 +30,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<List<Chat>> getChatsByUserId(String userId) async {
+  Future<List<Chat>> getChatsByUser(String userId) async {
     try {
       if ((await localChatDataSource.getChats()).isEmpty) {
         final chats = await mockChatDataSource.getChatsByUserId(userId);
