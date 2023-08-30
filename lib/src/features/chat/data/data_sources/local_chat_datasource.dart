@@ -10,7 +10,7 @@ abstract class LocalChatDataSource {
   Future<void> updateChat(Chat chat);
 }
 
-class LocalChatDatasourceImpl implements LocalChatDataSource {
+class LocalChatDataSourceImpl implements LocalChatDataSource {
   final boxName = 'chats';
   final boxType = ChatModel;
 
