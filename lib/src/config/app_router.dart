@@ -8,6 +8,10 @@ import '../constants/index.dart';
 import '../features/auth/data/data_sources/index.dart';
 import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/index.dart';
+import '../features/chat/data/repositories/index.dart';
+import '../features/chat/domain/usecases/index.dart';
+import '../features/chat/presentation/blocs/chat_list/chat_list_bloc.dart';
+import '../features/chat/presentation/index.dart';
 import '../features/content/domain/usecases/index.dart';
 import '../features/content/presentation/blocs/manage_content/manage_content_bloc.dart';
 import '../features/content/presentation/index.dart';
@@ -35,7 +39,7 @@ class AppRouter {
             name: AppRoutes.discover.name,
             path: AppRoutes.discover.name,
             builder: (_, __) => const DiscoverScreen(),
-            routes: <RouteBase>[
+            routes: [
               GoRoute(
                 name: 'user',
                 path: ':userId',
@@ -83,6 +87,29 @@ class AppRouter {
             ),
           child: const ManageContentScreen(),
         ),
+      ),
+      GoRoute(
+        name: AppRoutes.chats.name,
+        path: '/${AppRoutes.chats.name}',
+        builder: (_, __) => BlocProvider(
+          create: (context) => ChatListBloc(
+            getChatsByUser: GetChatsByUser(
+              context.read<ChatRepositoryImpl>(),
+            ),
+          )..add(
+              ChatListLoadEvent(
+                userId: context.read<AuthBloc>().state.user.id,
+              ),
+            ),
+          child: const ChatListScreen(),
+        ),
+        routes: [
+          GoRoute(
+            name: AppRoutes.userChat.name,
+            path: ':${AppRoutes.userChat.name}Id',
+            builder: (_, __) => const Center(child: Text('User Chat Screen')),
+          ),
+        ],
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {

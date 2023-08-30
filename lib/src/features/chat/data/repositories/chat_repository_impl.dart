@@ -39,11 +39,11 @@ class ChatRepositoryImpl implements ChatRepository {
         }
         return chats;
       } else {
-        debugPrint('ChatRepositoryImpl.getChatsByUserId from local db');
+        debugPrint('ChatRepositoryImpl.getChatsByUser from local db');
         return await localChatDataSource.getChats();
       }
     } catch (e) {
-      debugPrint('ChatRepositoryImpl.getChatsByUserId: $e');
+      debugPrint('ChatRepositoryImpl.getChatsByUser: $e');
       rethrow;
     }
   }

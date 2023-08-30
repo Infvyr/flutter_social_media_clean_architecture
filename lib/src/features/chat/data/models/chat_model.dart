@@ -36,11 +36,9 @@ class ChatModel {
       id: json['id'],
       currentUser: UserModel.fromJson(currentUser),
       otherUser: UserModel.fromJson(otherUser),
-      messages: (json['messages'] as List)
-          .map(
-            (message) => MessageModel.fromJson(json, json['id']),
-          )
-          .toList(),
+      messages: (json['messages'] as List).map((message) {
+        return MessageModel.fromJson(message, json['id']);
+      }).toList(),
     );
   }
 
@@ -50,11 +48,9 @@ class ChatModel {
       id: chatEntity.id,
       currentUser: UserModel.fromEntity(chatEntity.currentUser),
       otherUser: UserModel.fromEntity(chatEntity.otherUser),
-      messages: chatEntity.messages
-          ?.map(
-            (message) => MessageModel.fromEntity(message),
-          )
-          .toList(),
+      messages: chatEntity.messages!.map((message) {
+        return MessageModel.fromEntity(message);
+      }).toList(),
     );
   }
 

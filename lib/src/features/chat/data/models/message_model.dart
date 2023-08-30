@@ -27,7 +27,7 @@ class MessageModel {
   final String content;
 
   @HiveField(4)
-  final DateTime createdAt;
+  final String createdAt;
 
   factory MessageModel.fromJson(
     Map<String, dynamic> json,
@@ -35,10 +35,10 @@ class MessageModel {
   ) {
     return MessageModel(
       chatId: chatId,
-      senderId: json['senderId'] as String,
-      receiverId: json['receiverId'] as String,
-      content: json['content'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      senderId: json['senderId'],
+      receiverId: json['receiverId'],
+      content: json['content'],
+      createdAt: json['createdAt'],
     );
   }
 
