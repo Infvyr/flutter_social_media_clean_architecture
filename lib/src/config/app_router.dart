@@ -10,6 +10,7 @@ import '../features/auth/presentation/blocs/auth/auth_bloc.dart';
 import '../features/auth/presentation/index.dart';
 import '../features/chat/data/repositories/index.dart';
 import '../features/chat/domain/usecases/index.dart';
+import '../features/chat/presentation/blocs/chat/chat_bloc.dart';
 import '../features/chat/presentation/blocs/chat_list/chat_list_bloc.dart';
 import '../features/chat/presentation/index.dart';
 import '../features/content/domain/usecases/index.dart';
@@ -107,7 +108,22 @@ class AppRouter {
           GoRoute(
             name: AppRoutes.userChat.name,
             path: ':${AppRoutes.userChat.name}Id',
-            builder: (_, __) => const Center(child: Text('User Chat Screen')),
+            builder: (_, state) => BlocProvider(
+              create: (context) => ChatBloc(
+                getChatById: GetChatById(
+                  context.read<ChatRepositoryImpl>(),
+                ),
+                updateChat: UpdateChat(
+                  context.read<ChatRepositoryImpl>(),
+                ),
+              )..add(
+                  ChatLoadEvent(
+                    userId: context.read<AuthBloc>().state.user.id,
+                    chatId: state.pathParameters['${AppRoutes.userChat.name}Id']!,
+                  ),
+                ),
+              child: const ChatScreen(),
+            ),
           ),
         ],
       ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
-import '../../../../constants/index.dart';
-import '../../domain/entities/index.dart';
+import '../../../../../constants/index.dart';
+import '../../../../../shared/presentation/index.dart';
+import '../../../domain/entities/index.dart';
 
 class ChatListItem extends StatelessWidget {
   const ChatListItem({super.key, required this.chat});
@@ -16,9 +17,8 @@ class ChatListItem extends StatelessWidget {
 
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: CircleAvatar(
-        backgroundColor: Colors.grey,
-        backgroundImage: AssetImage(chat.otherUser.avatarUrl!),
+      leading: Avatar(
+        avatarUrl: chat.otherUser.avatarUrl,
         radius: 25,
       ),
       title: Text(

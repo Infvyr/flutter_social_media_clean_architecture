@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/index.dart';
-import '../index.dart';
+import '../../../domain/entities/index.dart';
+import '../../index.dart';
 
 class ChatList extends StatelessWidget {
   const ChatList({super.key, required this.chats});
