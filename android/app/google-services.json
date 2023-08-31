@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "815087629538",
+    "project_id": "f-clean-architecture-bloc",
+    "storage_bucket": "f-clean-architecture-bloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815087629538:android:865b4922f34d7e0a965abb",
+        "android_client_info": {
+          "package_name": "com.example.flutter_social_media_with_clean_architecture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815087629538-p9t7nung5f5qoj77ab7at0ffseopqrjc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUWQw8NcVp8-EZqtAnsSqW_sOOmqfLJpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815087629538-p9t7nung5f5qoj77ab7at0ffseopqrjc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815087629538-r23dchsa8a51ea2b7v30sfn1citqn23b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterSocialMediaWithCleanArchitecture"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

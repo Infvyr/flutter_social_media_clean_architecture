@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'src/config/index.dart';
 import 'src/features/auth/data/data_sources/index.dart';
@@ -30,6 +32,7 @@ void main() async {
   Hive.registerAdapter(PostModelAdapter());
   Hive.registerAdapter(ChatModelAdapter());
   Hive.registerAdapter(MessageModelAdapter());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
 }
 
