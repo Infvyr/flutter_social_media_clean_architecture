@@ -6,3 +6,4 @@ export 'widgets/video_player/video_player_item.dart';
 export 'widgets/video_player/video_player_item_child.dart';
 export 'widgets/video_player/video_player_caption.dart';
 export 'widgets/ui_elements/alert_error.dart';
+export 'widgets/ui_elements/user_avatar.dart';

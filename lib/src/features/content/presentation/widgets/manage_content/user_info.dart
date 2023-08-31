@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../shared/presentation/index.dart';
 import '../../../../auth/domain/entities/index.dart';
 import '../../index.dart';
 
@@ -12,11 +13,7 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: Colors.grey,
-          backgroundImage: user.avatarUrl == null ? null : AssetImage(user.avatarUrl!),
-        ),
+        Avatar(avatarUrl: user.avatarUrl),
         const SizedBox(height: 20),
         UserInfoContainer(user: user),
       ],
