@@ -38,7 +38,9 @@ class CustomNavBar extends StatelessWidget {
               iconSize: 30,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.goNamed(AppRoutes.chats.name);
+              },
               icon: const Icon(Icons.message),
               iconSize: 30,
             ),

@@ -5,4 +5,6 @@ enum AppRoutes {
   discover,
   addContent,
   profile,
+  chats,
+  userChat,
 }
