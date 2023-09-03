@@ -44,3 +44,9 @@ app.*.map.json
 /android/app/release
 
 /.vscode/settings.json
+
+# Firebase configuration file
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+/lib/generated_plugin_registrant.dart
+/lib/firebase_options.dart
